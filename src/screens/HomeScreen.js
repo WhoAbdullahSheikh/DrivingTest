@@ -5,134 +5,167 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
+  StatusBar,
+  Platform,
+  ScrollView,
+  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
+import { useLanguage } from '../context/LanguageContext';
 
-const HomeScreen = ({navigation}) => {
+const { width, height } = Dimensions.get('window');
+
+const translations = {
+  en: {
+    title: 'DrivingTest',
+    subtitle: 'Master your driving skills',
+    startTest: 'Start Test',
+    fullTest: 'Take a full driving test',
+    practiceTests: 'Practice Tests',
+    roadSigns: 'Road Signs',
+    rules: 'Rules & Laws',
+    safety: 'Safety Tips',
+    home: 'Home',
+    history: 'History',
+    progress: 'Progress',
+    settings: 'Settings'
+  },
+  sv: {
+    title: 'Körkortstest',
+    subtitle: 'Förbättra dina körkunskaper',
+    startTest: 'Starta testet',
+    fullTest: 'Gör ett komplett körkortstest',
+    practiceTests: 'Övningstester',
+    roadSigns: 'Vägmärken',
+    rules: 'Regler & Lagar',
+    safety: 'Säkerhetstips',
+    home: 'Hem',
+    history: 'Historik',
+    progress: 'Framsteg',
+    settings: 'Inställningar'
+  },
+  ar: {
+    title: 'اختبار القيادة',
+    subtitle: 'احترف مهارات القيادة',
+    startTest: 'بدء الاختبار',
+    fullTest: 'خوض اختبار قيادة كامل',
+    practiceTests: 'اختبارات التدريب',
+    roadSigns: 'علامات الطريق',
+    rules: 'القوانين واللوائح',
+    safety: 'نصائح السلامة',
+    home: 'الرئيسية',
+    history: 'السجل',
+    progress: 'التقدم',
+    settings: 'الإعدادات'
+  },
+};
+
+const HomeScreen = ({ navigation }) => {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
+  const handleStartTest = () => {
+    navigation.navigate('Test', {
+      testType: 'full',
+      title: t.fullTest,
+    });
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <>
+      <StatusBar translucent backgroundColor="transparent" />
       <LinearGradient
         colors={['#000000', '#1a1a1a', '#2d2d2d']}
         style={styles.background}>
-        <View style={styles.header}>
-          <Text style={styles.title}>DrivingTest</Text>
-          <Text style={styles.subtitle}>Master your driving skills</Text>
-        </View>
-
-        <View style={styles.content}>
-          {/* Quick Start Button - Updated navigation */}
-          <TouchableOpacity
-            style={[styles.card, styles.primaryCard]}
-            onPress={() =>
-              navigation.navigate('Test', {
-                testType: 'full',
-                title: 'Full Driving Test',
-              })
-            }>
-            <View style={styles.cardContent}>
-              <Icon name="car" size={30} color="#fff" />
-              <View>
-                <Text style={styles.cardTitle}>Start Test</Text>
-                <Text style={styles.cardText}>Take a full driving test</Text>
-              </View>
+        
+        <SafeAreaView style={styles.container}>
+          <ScrollView 
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.header}>
+              <Text style={styles.title}>{t.title}</Text>
+              <Text style={styles.subtitle}>{t.subtitle}</Text>
             </View>
-            <Icon name="chevron-right" size={24} color="#fff" />
-          </TouchableOpacity>
 
-          {/* Practice Section */}
-          <Text style={styles.sectionTitle}>Practice Tests</Text>
+            <View style={styles.content}>
+              <TouchableOpacity
+                style={[styles.card, styles.primaryCard]}
+                onPress={handleStartTest}>
+                <View style={styles.cardContent}>
+                  <Icon name="car" size={30} color="#fff" />
+                  <View>
+                    <Text style={styles.cardTitle}>{t.startTest}</Text>
+                    <Text style={styles.cardText}>{t.fullTest}</Text>
+                  </View>
+                </View>
+                <Icon name="chevron-right" size={24} color="#fff" />
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[styles.card, styles.secondaryCard]}
-            onPress={() => navigation.navigate('RoadSigns')}>
-            <View style={styles.cardContent}>
-              <View
-                style={[
-                  styles.iconContainer,
-                  {backgroundColor: 'rgba(76, 175, 80, 0.2)'},
-                ]}>
-                <Icon name="traffic-light" size={24} color="#4CAF50" />
-              </View>
-              <Text style={[styles.cardTitle, {color: '#fff'}]}>
-                Road Signs
-              </Text>
+              <Text style={styles.sectionTitle}>{t.practiceTests}</Text>
+
+              <TouchableOpacity
+                style={[styles.card, styles.secondaryCard]}
+                onPress={() => navigation.navigate('RoadSigns')}>
+                <View style={styles.cardContent}>
+                  <View
+                    style={[
+                      styles.iconContainer,
+                      {backgroundColor: 'rgba(76, 175, 80, 0.2)'},
+                    ]}>
+                    <Icon name="traffic-light" size={24} color="#4CAF50" />
+                  </View>
+                  <Text style={[styles.cardTitle, {color: '#fff'}]}>
+                    {t.roadSigns}
+                  </Text>
+                </View>
+                <Icon name="chevron-right" size={24} color="#fff" />
+              </TouchableOpacity>
             </View>
-            <Icon name="chevron-right" size={24} color="#4CAF50" />
-          </TouchableOpacity>
+          </ScrollView>
 
-          <TouchableOpacity
-            style={[styles.card, styles.secondaryCard]}
-            onPress={() => navigation.navigate('Rules')}>
-            <View style={styles.cardContent}>
-              <View
-                style={[
-                  styles.iconContainer,
-                  {backgroundColor: 'rgba(33, 150, 243, 0.2)'},
-                ]}>
-                <Icon name="book" size={24} color="#2196F3" />
-              </View>
-              <Text style={[styles.cardTitle, {color: '#fff'}]}>
-                Rules & Laws
-              </Text>
-            </View>
-            <Icon name="chevron-right" size={24} color="#2196F3" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.card, styles.secondaryCard]}
-            onPress={() => navigation.navigate('Safety')}>
-            <View style={styles.cardContent}>
-              <View
-                style={[
-                  styles.iconContainer,
-                  {backgroundColor: 'rgba(255, 87, 34, 0.2)'},
-                ]}>
-                <Icon name="alert-octagon" size={24} color="#FF5722" />
-              </View>
-              <Text style={[styles.cardTitle, {color: '#fff'}]}>
-                Safety Tips
-              </Text>
-            </View>
-            <Icon name="chevron-right" size={24} color="#FF5722" />
-          </TouchableOpacity>
-        </View>
-
-        {/* Bottom Navigation */}
-        <View style={styles.bottomNav}>
-          <TouchableOpacity style={styles.navItem}>
-            <Icon name="home" size={24} color="#3F51B5" />
-            <Text style={[styles.navText, {color: '#3F51B5'}]}>Home</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.navItem}>
-            <Icon name="history" size={24} color="#aaa" />
-            <Text style={[styles.navText, {color: '#aaa'}]}>History</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.navItem}>
-            <Icon name="star" size={24} color="#aaa" />
-            <Text style={[styles.navText, {color: '#aaa'}]}>Progress</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.navItem}>
-            <Icon name="cog" size={24} color="#aaa" />
-            <Text style={[styles.navText, {color: '#aaa'}]}>Settings</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.bottomNav}>
+            <TouchableOpacity style={styles.navItem}>
+              <Icon name="home" size={24} color="#4CAF50" />
+              <Text style={[styles.navText, {color: 'white'}]}>{t.home}</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={styles.navItem}
+              onPress={() => navigation.navigate('History')}>
+              <Icon name="history" size={24} color="#aaa" />
+              <Text style={[styles.navText, {color: '#aaa'}]}>{t.history}</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={styles.navItem}
+              onPress={() => navigation.navigate('Settings')}>
+              <Icon name="cog" size={24} color="#aaa" />
+              <Text style={[styles.navText, {color: '#aaa'}]}>{t.settings}</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
       </LinearGradient>
-    </SafeAreaView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
   },
   background: {
     flex: 1,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 80,
   },
   header: {
     padding: 20,
-    paddingTop: 40,
+    paddingTop: Platform.OS === 'ios' ? 0 : 20,
   },
   title: {
     fontSize: 32,
@@ -157,7 +190,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   primaryCard: {
-    backgroundColor: '#3F51B5',
+    backgroundColor: '#4CAF50',
   },
   secondaryCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -192,6 +225,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   bottomNav: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 15,
@@ -201,6 +238,7 @@ const styles = StyleSheet.create({
   },
   navItem: {
     alignItems: 'center',
+    flex: 1,
   },
   navText: {
     fontSize: 12,
