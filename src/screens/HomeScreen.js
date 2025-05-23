@@ -12,24 +12,24 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
-import { useLanguage } from '../context/LanguageContext';
+import {useLanguage} from '../context/LanguageContext';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const translations = {
   en: {
-    title: 'DrivingTest',
+    title: 'Drive Smart',
     subtitle: 'Master your driving skills',
     startTest: 'Start Test',
     fullTest: 'Take a full driving test',
     practiceTests: 'Practice Tests',
-    roadSigns: 'Road Signs',
+    trafficRules: 'Traffic Rules',
     rules: 'Rules & Laws',
     safety: 'Safety Tips',
     home: 'Home',
     history: 'History',
     progress: 'Progress',
-    settings: 'Settings'
+    settings: 'Settings',
   },
   sv: {
     title: 'Körkortstest',
@@ -37,13 +37,13 @@ const translations = {
     startTest: 'Starta testet',
     fullTest: 'Gör ett komplett körkortstest',
     practiceTests: 'Övningstester',
-    roadSigns: 'Vägmärken',
+    trafficRules: 'Trafikregler',
     rules: 'Regler & Lagar',
     safety: 'Säkerhetstips',
     home: 'Hem',
     history: 'Historik',
     progress: 'Framsteg',
-    settings: 'Inställningar'
+    settings: 'Inställningar',
   },
   ar: {
     title: 'اختبار القيادة',
@@ -51,26 +51,24 @@ const translations = {
     startTest: 'بدء الاختبار',
     fullTest: 'خوض اختبار قيادة كامل',
     practiceTests: 'اختبارات التدريب',
-    roadSigns: 'علامات الطريق',
+    trafficRules: 'قواعد المرور',
     rules: 'القوانين واللوائح',
     safety: 'نصائح السلامة',
     home: 'الرئيسية',
     history: 'السجل',
     progress: 'التقدم',
-    settings: 'الإعدادات'
+    settings: 'الإعدادات',
   },
 };
 
-const HomeScreen = ({ navigation }) => {
-  const { language } = useLanguage();
+const HomeScreen = ({navigation}) => {
+  const {language} = useLanguage();
   const t = translations[language] || translations.en;
 
-  const handleStartTest = () => {
-    navigation.navigate('Test', {
-      testType: 'full',
-      title: t.fullTest,
-    });
-  };
+
+const handleStartTest = () => {
+  navigation.navigate('QuestionCountSelection');
+};
 
   return (
     <>
@@ -78,12 +76,10 @@ const HomeScreen = ({ navigation }) => {
       <LinearGradient
         colors={['#000000', '#1a1a1a', '#2d2d2d']}
         style={styles.background}>
-        
         <SafeAreaView style={styles.container}>
-          <ScrollView 
+          <ScrollView
             contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false}
-          >
+            showsVerticalScrollIndicator={false}>
             <View style={styles.header}>
               <Text style={styles.title}>{t.title}</Text>
               <Text style={styles.subtitle}>{t.subtitle}</Text>
@@ -107,7 +103,7 @@ const HomeScreen = ({ navigation }) => {
 
               <TouchableOpacity
                 style={[styles.card, styles.secondaryCard]}
-                onPress={() => navigation.navigate('RoadSigns')}>
+                onPress={() => navigation.navigate('Rules')}>
                 <View style={styles.cardContent}>
                   <View
                     style={[
@@ -117,7 +113,7 @@ const HomeScreen = ({ navigation }) => {
                     <Icon name="traffic-light" size={24} color="#4CAF50" />
                   </View>
                   <Text style={[styles.cardTitle, {color: '#fff'}]}>
-                    {t.roadSigns}
+                    {t.trafficRules}
                   </Text>
                 </View>
                 <Icon name="chevron-right" size={24} color="#fff" />
@@ -130,19 +126,21 @@ const HomeScreen = ({ navigation }) => {
               <Icon name="home" size={24} color="#4CAF50" />
               <Text style={[styles.navText, {color: 'white'}]}>{t.home}</Text>
             </TouchableOpacity>
-            
-            <TouchableOpacity 
+
+            <TouchableOpacity
               style={styles.navItem}
               onPress={() => navigation.navigate('History')}>
               <Icon name="history" size={24} color="#aaa" />
               <Text style={[styles.navText, {color: '#aaa'}]}>{t.history}</Text>
             </TouchableOpacity>
-            
-            <TouchableOpacity 
+
+            <TouchableOpacity
               style={styles.navItem}
               onPress={() => navigation.navigate('Settings')}>
               <Icon name="cog" size={24} color="#aaa" />
-              <Text style={[styles.navText, {color: '#aaa'}]}>{t.settings}</Text>
+              <Text style={[styles.navText, {color: '#aaa'}]}>
+                {t.settings}
+              </Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -168,14 +166,15 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 0 : 20,
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 36,
     color: '#fff',
     marginBottom: 5,
+    fontFamily: 'Raleway-Bold',
   },
   subtitle: {
     fontSize: 16,
     color: '#aaa',
+    fontFamily: 'Raleway-Regular',
   },
   content: {
     flex: 1,
@@ -185,9 +184,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 20,
+    padding: 15,
     borderRadius: 12,
-    marginBottom: 15,
+    marginBottom: 5,
   },
   primaryCard: {
     backgroundColor: '#4CAF50',
@@ -209,20 +208,21 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#fff',
+    fontFamily: 'Raleway-Bold',
   },
   cardText: {
     fontSize: 14,
     color: '#eee',
     marginTop: 5,
+    fontFamily: 'Raleway-Regular',
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#fff',
     marginTop: 25,
     marginBottom: 15,
+    fontFamily: 'Raleway-Bold',
   },
   bottomNav: {
     position: 'absolute',
@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     borderTopWidth: 1,
     borderTopColor: 'rgba(255, 255, 255, 0.1)',
+    paddingBottom: 40,
   },
   navItem: {
     alignItems: 'center',
@@ -243,6 +244,7 @@ const styles = StyleSheet.create({
   navText: {
     fontSize: 12,
     marginTop: 5,
+    fontFamily: 'Raleway-Regular',
   },
 });
 

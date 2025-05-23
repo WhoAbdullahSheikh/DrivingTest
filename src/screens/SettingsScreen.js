@@ -1,4 +1,3 @@
-// screens/SettingsScreen.js
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -47,8 +46,6 @@ const SettingsScreen = ({navigation}) => {
         <Text style={styles.optionText}>{t.language}</Text>
         <Icon name="chevron-right" size={24} color="#aaa" />
       </TouchableOpacity>
-
-      {/* Add other settings options similarly */}
     </View>
   );
 };
@@ -67,10 +64,11 @@ const styles = StyleSheet.create({
     borderBottomColor: 'rgba(255,255,255,0.1)',
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#fff',
     marginLeft: 20,
+    fontFamily: 'Raleway-Bold',
   },
   option: {
     flexDirection: 'row',
@@ -84,6 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     marginLeft: 15,
+    fontFamily: 'Raleway-Regular',
   },
 });
 

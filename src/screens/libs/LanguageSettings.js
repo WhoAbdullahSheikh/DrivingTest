@@ -108,10 +108,11 @@ const styles = StyleSheet.create({
     borderBottomColor: 'rgba(255,255,255,0.1)',
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#fff',
     marginLeft: 20,
+    fontFamily: 'Raleway-Bold',
   },
   content: {
     flex: 1,
@@ -121,6 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#aaa',
     marginBottom: 15,
+    fontFamily: 'Raleway-Regular',
   },
   currentLanguageContainer: {
     backgroundColor: 'rgba(255,255,255,0.1)',
@@ -132,6 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
+    fontFamily: 'Raleway-Bold',
   },
   languageOption: {
     flexDirection: 'row',
@@ -149,6 +152,7 @@ const styles = StyleSheet.create({
   languageFlag: {
     fontSize: 24,
     marginRight: 15,
+    
   },
   languageTextContainer: {
     flex: 1,
@@ -156,11 +160,13 @@ const styles = StyleSheet.create({
   languageName: {
     fontSize: 16,
     color: '#fff',
+    fontFamily: 'Raleway-Regular',
   },
   languageNativeName: {
     fontSize: 14,
     color: '#aaa',
     marginTop: 2,
+    fontFamily: 'Raleway-Regular',
   },
 });
 

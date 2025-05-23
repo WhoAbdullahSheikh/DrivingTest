@@ -3,9 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { I18nManager } from 'react-native';
 
 // Import all question files
-import questionsEN from '../data/questions.en.json';
-import questionsSV from '../data/questions.sv.json';
-import questionsAR from '../data/questions.ar.json';
+import questionsEN from '../data/questions/questions.en.json';
+import questionsSV from '../data/questions/questions.sv.json';
+import questionsAR from '../data/questions/questions.ar.json';
 
 const LanguageContext = createContext();
 
